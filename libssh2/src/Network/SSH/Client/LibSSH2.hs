@@ -47,6 +47,7 @@ import qualified Data.ByteString.Lazy as BSL
 
 import Network.SSH.Client.LibSSH2.Types
 import Network.SSH.Client.LibSSH2.Foreign
+import Network.SSH.Client.LibSSH2.Errors
 
 -- | Similar to Network.connectTo, but does not socketToHandle.
 socketConnect :: String -> Int -> IO Socket
@@ -270,8 +271,21 @@ withSFTP known_hosts public private passphrase login hostname port fn =
     r <- checkHost s hostname port known_hosts
     when (r == MISMATCH) $
       error $ "Host key mismatch for host " ++ hostname
+    errTup <- getLastError $ sftpSession sftp
+    putStrLn "--------"
+    putStrLn $ show $ errTup
+    putStrLn "--------"
     publicKeyAuthFile s login public private passphrase
-    withSftpSession s fn
+    errTup2 <- getLastError $ sftpSession sftp
+    putStrLn "--------"
+    putStrLn $ show $ errTup2
+    putStrLn "--------"
+    hack <- withSftpSession s fn
+    errTup3 <- getLastError $ sftpSession sftp
+    putStrLn "--------"
+    putStrLn $ show $ errTup3
+    putStrLn "--------"
+    pure hack
 
 -- | Execute some actions within SFTP connection.
 -- Uses username/password authentication.
