@@ -244,7 +244,11 @@ class SshCtx a where
 
 instance SshCtx Session where
   getSession = id
-  throwCtxSpecificError _ er = throw er
+  throwCtxSpecificError ctx er = do
+    er2 <- getLastError ctx
+    putStrLn "----- throwCtxSpecificError"
+    putStrLn $ show e2
+    throw er
 
 instance SshCtx Sftp where
   getSession = sftpSession
@@ -252,7 +256,11 @@ instance SshCtx Sftp where
   throwCtxSpecificError ctx SFTP_PROTOCOL = do
     er <- getLastSftpError ctx
     throw (int2sftperror er)
-  throwCtxSpecificError _ er = throw er
+  throwCtxSpecificError ctx er = do
+    er2 <- getLastError ctx
+    putStrLn "----- throwCtxSpecificError"
+    putStrLn $ show e2
+    throw er
 
 instance SshCtx SftpHandle where
   getSession = getSession . sftpHandleSession
