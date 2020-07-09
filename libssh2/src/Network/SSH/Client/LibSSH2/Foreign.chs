@@ -276,7 +276,7 @@ publicKeyAuthFile :: Session -- ^ Session
                   -> String  -- ^ Passphrase
                   -> IO ()
 publicKeyAuthFile session username public private passphrase = void . handleInt (Just session) $
-  publicKeyAuthFile_ session username public private passphrase
+  publicKeyAuthFile_ session username nullPtr private passphrase
 
 -- | Perform username/password authentication.
 usernamePasswordAuth :: Session -- ^ Session
