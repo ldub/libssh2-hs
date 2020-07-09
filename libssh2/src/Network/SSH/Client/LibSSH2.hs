@@ -271,17 +271,17 @@ withSFTP known_hosts public private passphrase login hostname port fn =
     r <- checkHost s hostname port known_hosts
     when (r == MISMATCH) $
       error $ "Host key mismatch for host " ++ hostname
-    errTup <- getLastError $ sftpSession sftp
+    errTup <- getLastError s
     putStrLn "--------"
     putStrLn $ show $ errTup
     putStrLn "--------"
     publicKeyAuthFile s login public private passphrase
-    errTup2 <- getLastError $ sftpSession sftp
+    errTup2 <- getLastError s
     putStrLn "--------"
     putStrLn $ show $ errTup2
     putStrLn "--------"
     hack <- withSftpSession s fn
-    errTup3 <- getLastError $ sftpSession sftp
+    errTup3 <- getLastError s
     putStrLn "--------"
     putStrLn $ show $ errTup3
     putStrLn "--------"
