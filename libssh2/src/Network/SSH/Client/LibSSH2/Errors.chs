@@ -247,7 +247,7 @@ instance SshCtx Session where
   throwCtxSpecificError ctx er = do
     er2 <- getLastError ctx
     putStrLn "----- throwCtxSpecificError"
-    putStrLn $ show e2
+    putStrLn $ show er2
     throw er
 
 instance SshCtx Sftp where
@@ -259,7 +259,7 @@ instance SshCtx Sftp where
   throwCtxSpecificError ctx er = do
     er2 <- getLastError ctx
     putStrLn "----- throwCtxSpecificError"
-    putStrLn $ show e2
+    putStrLn $ show er2
     throw er
 
 instance SshCtx SftpHandle where
