@@ -266,7 +266,7 @@ checkKnownHost kh host port key flags = checkKnownHost_ kh host port key (length
     `String' &,
     `String',
     `String',
-    `String' } -> `Int' #}
+    `CString' } -> `Int' #}
 
 -- | Perform public key authentication.
 publicKeyAuthFile :: Session -- ^ Session
@@ -276,7 +276,7 @@ publicKeyAuthFile :: Session -- ^ Session
                   -> String  -- ^ Passphrase
                   -> IO ()
 publicKeyAuthFile session username public private passphrase = void . handleInt (Just session) $
-  publicKeyAuthFile_ session username public private passphrase
+  publicKeyAuthFile_ session username public private nullPtr
 
 -- | Perform username/password authentication.
 usernamePasswordAuth :: Session -- ^ Session
