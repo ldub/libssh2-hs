@@ -264,7 +264,7 @@ checkKnownHost kh host port key flags = checkKnownHost_ kh host port key (length
 {# fun userauth_publickey_fromfile_ex as publicKeyAuthFile_
   { toPointer `Session',
     `String' &,
-    `String',
+    `CString',
     `String',
     `String' } -> `Int' #}
 
