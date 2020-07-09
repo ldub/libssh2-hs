@@ -257,7 +257,7 @@ instance SshCtx Sftp where
     er <- getLastSftpError ctx
     throw (int2sftperror er)
   throwCtxSpecificError ctx er = do
-    er2 <- getLastError ctx
+    er2 <- getLastError $ getSession ctx
     putStrLn "----- throwCtxSpecificError"
     putStrLn $ show er2
     throw er
