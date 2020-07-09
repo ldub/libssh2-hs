@@ -264,7 +264,7 @@ checkKnownHost kh host port key flags = checkKnownHost_ kh host port key (length
 {# fun userauth_publickey_fromfile_ex as publicKeyAuthFile_
   { toPointer `Session',
     `String' &,
-    `CString',
+    `String',
     `String',
     `String' } -> `Int' #}
 
@@ -276,7 +276,7 @@ publicKeyAuthFile :: Session -- ^ Session
                   -> String  -- ^ Passphrase
                   -> IO ()
 publicKeyAuthFile session username public private passphrase = void . handleInt (Just session) $
-  publicKeyAuthFile_ session username nullPtr private passphrase
+  publicKeyAuthFile_ session username public private passphrase
 
 -- | Perform username/password authentication.
 usernamePasswordAuth :: Session -- ^ Session
